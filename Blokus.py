@@ -1,18 +1,15 @@
-from tkinter import Tk,Canvas,Label,Button,Message
+from tkinter import Tk,Canvas,Label,Button
 from math import pow,sqrt
-from random import randrange
-
+from os import system
 
 info_blue = {
 	"nbr_pt": 0,
-	"score": 0,
-	"cycle": 0
+	"score": 0
 }
 
 info_red = {
 	"nbr_pt": 0,
-	"score": 0,
-	"cycle": 0
+	"score": 0
 }
 
 curseur = "red"
@@ -194,6 +191,9 @@ fen = Tk()
 fen.title('Blockus version 1.0')
 fen.geometry('800x630+200+30')
 fen.resizable(width=0, height=0)
+#fen.iconbitmap("C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\logo.png")
+
+
 
 #creation du canvas qui va contenir tout les points
 cnv = Canvas(fen, width= 558, height= 558, bg='#c9c9ff')
@@ -269,9 +269,11 @@ def display():
     score_blue = Label(fen,text="Score :"+str(info_blue["score"]), fg="blue",font=("Arial",13,"bold"))
     score_blue.place(x= 685, y= 150)
 
-
-	
-
+#fonction qui creer une nouvelle partie
+def nouveau():
+	global fen
+	fen.destroy()#on va se contenter de sa pour le moment
+	system("start C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\blokus.py")
 #fonction executer lors du click
 def click(event):
 	global curseur
@@ -368,7 +370,7 @@ display()
 
 #bouton de jeu 
 #rejouer
-new = Button(fen, text="Nouveau",width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
+new = Button(fen, text="Nouveau",command= nouveau,width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
 new.place(x= 673, y=270)
 #pause 
 clr = Button(fen, text="Pause",width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
