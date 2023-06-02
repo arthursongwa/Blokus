@@ -1,7 +1,7 @@
 from tkinter import Tk,Canvas,Label,Button
 from math import pow,sqrt
 from os import system
-import pygame
+
 
 info_blue = {
 	"nbr_pt": 0,
@@ -186,7 +186,6 @@ class center_pt:
 					return "blue"
 
 
-
 fen = Tk()
 fen.title('Blockus version 1.0')
 fen.geometry('800x630+200+30')
@@ -274,6 +273,8 @@ def nouveau():
 	global fen
 	fen.destroy()#on va se contenter de sa pour le moment
 	system("start C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\blokus.py")
+
+
 #fonction executer lors du click
 def click(event):
 	global curseur
@@ -377,11 +378,5 @@ clr = Button(fen, text="Pause",width=17,height=2, relief="flat", bg="#6b6bff",fo
 clr.place(x= 673, y=310)
 
 cnv.bind('<Button-1>', click)
-
-pygame.mixer.init()
-my_sound = pygame.mixer.Sound('C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\fichiers\\son_ambiance.wav')
-my_sound.play()
-
-my_sound.set_volume(0.5)
 
 fen.mainloop()
