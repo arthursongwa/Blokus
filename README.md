@@ -1,5 +1,5 @@
-
-# BLOKUS   ![Banderole](https://github.com/arthursongwa/Blokus/blob/main/fichiers/image%20(2).png?raw=true)
+![Banderole](https://github.com/arthursongwa/Blokus/blob/main/fichiers/image%20(2).png?raw=true)
+# BLOKUS   
 Blokus est un jeu VS en 2D dont le but est d'encadrer plus de point que ses adversaires.
 ## Comment Jouer
 Tout d'abors il suffit de lancer le fichier executable **Blokus.exe**, ensuite vous devez mettre des points sur la grille de jeu 
