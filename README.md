@@ -34,9 +34,6 @@ Pour utiliser le code source sans difficulte il vous faut:
 ### Arborescence:chains:
 ### Fonctionnement :hammer_and_wrench:
 
-<<<<<<< HEAD
-# BLOKUS 2
-=======
+
 # BLOKUS 2 :no_entry:
->>>>>>> e0352747386c56d221fc93120cd3777881a9b2ed
 Blokus 2 est la suite directe de Blokus qui apportera une nouvelle ambiance a l'univers avec un nouveau concept de jeu et une logique a couper le souffle. Sa sortie n'est pas encore officiel mais si sont predecesseur Blokus est un succes alors il se pourrait bien qu'il arrive.
