@@ -1,6 +1,7 @@
 from tkinter import Tk,Canvas,Label,Button
 from math import pow,sqrt
 from os import system
+import pygame
 
 info_blue = {
 	"nbr_pt": 0,
@@ -183,7 +184,6 @@ class center_pt:
 					self.etat = False
 					
 					return "blue"
-					
 
 
 
@@ -209,11 +209,11 @@ def encadrer():
 	
 	for i in liste_cen:
 		if i.write() == "red":
-			info_red["score"]+=1
+			info_red["score"]+=10
 			display()
 			curseur = "red"
 		elif i.write() == "blue":
-			info_blue["score"]+=1
+			info_blue["score"]+=10
 			display()
 			curseur = "blue"
 
@@ -375,8 +375,6 @@ new.place(x= 673, y=270)
 #pause 
 clr = Button(fen, text="Pause",width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
 clr.place(x= 673, y=310)
-
-
 
 cnv.bind('<Button-1>', click)
 
