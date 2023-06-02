@@ -18,7 +18,7 @@ L'interface de Blokus est facile a appréhender. Elle se subdivise en 3 principa
 + Il passe le tour au joueur suivant de maniere automatique 
 
 
-## A venir 
+##  A venir 
 Dans les versions qui suivrons celle-ci plusieurs fonctionnalités seront disponible telque : 
 + Jouer à distance avec un autre utilisateur grace une connexion internet
 + Jouer avec une IA sur plusieurs niveaux de difficulter à debloquer 
