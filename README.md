@@ -31,7 +31,7 @@ Pour utiliser le code source sans difficulte il vous faut:
 + Telecharger [Python 3](https://python.org/)
 + Installer **Tkinter** de python
     + `pip install tkinter`
-### Arborecence :chains:
+### Arborescence:chains:
 ### Fonctionnement :hammer_and_wrench:
 
 # BLOKUS 2 :no_entry:
