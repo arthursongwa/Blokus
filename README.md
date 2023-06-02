@@ -6,6 +6,12 @@ Tout d'abors il suffit de lancer le fichier executable **Blokus.exe**, ensuite v
 chacun a son tour et une fois que l'on reussi a aligné quatre points en carre ceux-ci sont encadré et on gagne +1  sur notre score
 actuel puis il nous est accorder un **point bonus**. Donc c'est a vous de mettre sur pieds une strategie vous permettant d'empecher l'adversaire de cadrer tout en cadrant vous meme vos points.
 ## Interface
+![interface](https://github.com/arthursongwa/Blokus/blob/main/fichiers/image.png?raw=true)
+L'interface de Blokus est facile a appréhender. Elle se subdivise en 3 principales parties : 
++ Zone A : donc la couleur varie en fonction de celui qui doit jouer 
++ Zone B : qui represente la grille ou a lieu le jeu 
++ Zone C : qui affiche le score et le nombre de point de chaque joueur en temps reel
+![partie](https://github.com/arthursongwa/Blokus/blob/main/fichiers/image_interface.png?raw=true)
 ## Fonctionnalités
 + Blokus detecter les points alignés en carré et les encadre automatiquement
 + Il passe le tour au joueur suivant de maniere automatique 
