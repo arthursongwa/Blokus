@@ -378,4 +378,10 @@ clr.place(x= 673, y=310)
 
 cnv.bind('<Button-1>', click)
 
+pygame.mixer.init()
+my_sound = pygame.mixer.Sound('C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\fichiers\\son_ambiance.wav')
+my_sound.play()
+
+my_sound.set_volume(0.5)
+
 fen.mainloop()
