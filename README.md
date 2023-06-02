@@ -28,3 +28,4 @@ Pour utiliser le code source sans difficulte il vous faut:
 
 # BLOKUS 2
 Blokus 2 est la suite directe de Blokus qui apportera une nouvelle ambiance a l'univers avec un nouveau concept de jeu et une logique a couper le souffle. Sa sortie n'est pas encore officiel mais si sont predecesseur Blokus est un succes alors il se pourrait bien qu'il arrive.
+![Screenshot of a commen.](https://github.com/arthursongwa/Blokus/blob/main/fichiers/image%20(2).png?raw=true)
