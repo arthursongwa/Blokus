@@ -272,7 +272,8 @@ def display():
 def nouveau():
 	global fen
 	fen.destroy()#on va se contenter de sa pour le moment
-	system("start C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\blokus.py")
+	
+	system("start C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\Blokus-v1.0.exe")
 
 
 #fonction executer lors du click
