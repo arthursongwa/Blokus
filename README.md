@@ -4,7 +4,7 @@ Blokus est un jeu VS en 2D dont le but est d'encadrer plus de point que ses adve
 ## Comment Jouer 	:joystick:
 Tout d'abors il suffit de lancer le fichier executable [**Blokus.exe**](https://github.com/arthursongwa/Blokus/releases/download/v1.0/blokus.1.0.exe), ensuite vous devez mettre des points sur la grille de jeu 
 chacun a son tour et une fois que l'on reussi a aligné quatre points en carre ceux-ci sont encadré et on gagne +1  sur notre score
-actuel puis il nous est accorder un **point bonus**. Donc c'est a vous de mettre sur pieds une strategie vous permettant d'empecher l'adversaire de cadrer tout en cadrant vous meme vos points.                        
+actuel puis il nous est accorder un **point bonus**. Donc c'est a vous de mettre sur pieds une strategie vous permettant d'empecher l'adversaire de cadrer tout en cadrant vous meme vos points. Et il faut savoir qu'il y'a un compte a rebours de 3min30.                       
 ![](https://github.com/arthursongwa/Blokus/blob/main/fichiers/image%20(3).png?raw=true)
 ## Interface 	:desktop_computer:
 ![interface](https://github.com/arthursongwa/Blokus/blob/main/fichiers/image.png?raw=true)
