@@ -198,6 +198,11 @@ fen.resizable(width=0, height=0)
 cnv = Canvas(fen, width= 558, height= 558, bg='#c9c9ff')
 cnv.place(x=110, y=40)
 
+#affiche le temps et controle la partie 
+def time_play():
+	pass
+
+
 #verifie si un pt est encadrable ou non
 def encadrer():
 	global curseur
@@ -273,9 +278,6 @@ def nouveau():
 	global fen
 	fen.destroy()#on va se contenter de sa pour le moment
 	
-	system("start C:\\Users\\HP\\OneDrive\\Documents\\GitHub\\Blokus\\Blokus-v1.0.exe")
-
-
 #fonction executer lors du click
 def click(event):
 	global curseur
