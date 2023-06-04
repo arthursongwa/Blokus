@@ -2,7 +2,6 @@ from tkinter import Tk,Canvas,Label,Button,messagebox
 from math import pow,sqrt
 
 
-
 info_blue = {
 	"nbr_pt": 0,
 	"score": 0
@@ -431,5 +430,4 @@ clr = Button(fen, text="Pause",width=17,height=2, relief="flat", bg="#6b6bff",fo
 clr.place(x= 673, y=310)
 
 cnv.bind('<Button-1>', click)
-
 fen.mainloop()
