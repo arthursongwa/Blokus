@@ -1,6 +1,6 @@
-from tkinter import Tk,Canvas,Label,Button
+from tkinter import Tk,Canvas,Label,Button,messagebox
 from math import pow,sqrt
-from os import system
+
 
 
 info_blue = {
@@ -14,6 +14,7 @@ info_red = {
 }
 
 curseur = "red"
+
 
 liste_points_rouge = []
 liste_points_bleu = []
@@ -199,9 +200,41 @@ cnv = Canvas(fen, width= 558, height= 558, bg='#c9c9ff')
 cnv.place(x=110, y=40)
 
 #affiche le temps et controle la partie 
+temps = [00,00,00]
 def time_play():
-	pass
+	global temps
+	t = ["","",""]
+	if temps[2] == 59:
+		temps[2] = 0
+		temps[1] += 1
 
+	elif temps[1] == 59:
+		temps[1] = 0
+		temps[2] = 0
+		temps[0] += 1
+	else:
+		temps[2] += 1
+
+	#affichage
+	if temps[0]<10:
+		t[0] = "0"+str(temps[0])
+	else:
+		t[0] = str(temps[0])
+	if temps[1]<10:
+		t[1] = "0"+str(temps[1])
+	else:
+		t[1] = str(temps[1])
+	if temps[2]<10:
+		t[2] = "0"+str(temps[2])
+	else:
+		t[2] = str(temps[2])
+
+	print(t)
+	tp = Label(fen,text="Temps: "+t[0]+":"+t[1]+":"+t[2], fg="#4f4fff",font=("Arial",11,"bold"))
+	tp.place(x= 110, y= 15)
+
+	cnv.after(1000,time_play)
+time_play()
 
 #verifie si un pt est encadrable ou non
 def encadrer():
@@ -230,17 +263,27 @@ def encadrer():
 	
 encadrer()
 
+#determine qui gagne
+def gagne():
+	
+	global info_blue, info_red
+	if info_blue["score"] < info_red["score"]:
+		print("Le rouge gagne")
+
+		fen0 = Tk()
+		
+		fen0.mainloop()
+
+	elif info_blue["score"] == info_red["score"]:
+		print("Il ya egaliter")
+	else: 
+		print("Le bleu gagne")
+
+
 #fonction qui affiche les information a lecran
 def display():
     global info_blue, info_red
-    def actu():
-        a= info_red["score"]
-        b= info_blue["score"]
-
-        if a!= info_red["score"]:
-            display()
-	    
-        cnv.after(3000, actu)
+    
 
     #titre du jeu 
     title = Label(fen,text="Blokus v1.0", fg="#4f4fff",font=("Arial",15,"bold"))
@@ -329,7 +372,9 @@ def click(event):
 def qui_joue():
 	global curseur
 	x,y = 109,-15
-	
+	if temps == [0,0,3]:
+		print("temps ecouler")
+		gagne()
 	a = Button(fen, text="", bg=curseur, width=79, relief="flat")
 	a.place(x=x, y=y)
 
