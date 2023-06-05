@@ -4,14 +4,14 @@ from math import pow,sqrt
 #------------------------------------------------
 #-Initialisation des variables globaux-----------
 #------------------------------------------------
-taille_grille = [1000,600]#taille de la grille min:438,278 
+taille_grille = [900,550]#taille de la grille min:438,278 
 temps_jeu =  [0,5,0]#temps avant la fin du jeu en minute
 #-----------------------------------------------
 #------Informations sur les joueurs-------------
 color_1, nbr_pt_player_1,score_player_1,etat_player_1 = "#cd021b",0,0,True
 color_2, nbr_pt_player_2,score_player_2,etat_player_2 = "#4d1ed0",0,0,True
-color_3, nbr_pt_player_3,score_player_3,etat_player_3 = "#068520",0,0,True
-color_4, nbr_pt_player_4,score_player_4,etat_player_4 = "#6f2c99",0,0,True
+color_3, nbr_pt_player_3,score_player_3,etat_player_3 = "#068520",0,0,False
+color_4, nbr_pt_player_4,score_player_4,etat_player_4 = "#6f2c99",0,0,False
 
 #---------------------------------
 player_1 = {
