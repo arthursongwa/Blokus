@@ -1,0 +1,94 @@
+Element a configurer:
+---------------------
+bouton nouveau []
+---------------------
+
+---------------------
+bouton pause [x]
+---------------------
+
+---------------------
+fenetre edit []
+---------------------
+
+---------------------
+choix du gagnant []
+---------------------
+
+class center_pt:
+	def __init__(self, x,y):
+		self.x = x
+		self.y = y
+		self.etat = False
+		self.color = "#6b6bff"
+		self.sms = [["",0],["",0],["",0],["",0]]
+        #ici tout les pts centres sont creer des le debut du jeu
+	def write(self,cnv):
+		global curseur
+		if True:#encadrement des pt red
+			for i in liste_points:
+				#pt en haut droite
+				x_pt = self.x +20
+				y_pt = self.y -20
+				if i.id(x_pt,y_pt)!=0:
+					self.sms[0] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+			
+				#pt en haut gauche
+				x_pt = self.x -20
+				y_pt = self.y -20
+				if i.id(x_pt,y_pt)!=0:#on verifie sil ya un pt a cet endroit
+					self.sms[1] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+			
+				#pt en bas gauche
+				x_pt = self.x -20
+				y_pt = self.y +20
+				if i.id(x_pt,y_pt)!=0:#on verifie sil ya un pt a cet endroit
+					self.sms[2] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+			
+				#pt en bas droite
+				x_pt = self.x +20
+				y_pt = self.y +20
+				if i.id(x_pt,y_pt)!=0:#on verifie sil ya un pt a cet endroit
+					self.sms[3] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+                                        
+			
+			if self.sms[0][0] == self.sms[1][0] == self.sms[2][0] == self.sms[3][0]:
+				
+				cnv.create_line(self.sms[0][1],self.sms[1][1],fill=self.sms[0][0],width=2)
+				cnv.create_line(self.sms[1][1],self.sms[2][1],fill=self.sms[0][0],width=2)
+				cnv.create_line(self.sms[2][1],self.sms[3][1],fill=self.sms[0][0],width=2)
+				cnv.create_line(self.sms[3][1],self.sms[0][1],fill=self.sms[0][0],width=2)
+				self.etat = False	
+				curseur = self.sms[0][0]
+				return self.sms[0][0]
+					
+			else: 
+				return 0	
+
+
+#verifie si un pt est encadrable ou non
+    def encadrer():
+        for i in liste_centre_actif:
+            if i.etat:
+                b = "i.write(cnv)"
+                print(len(liste_centre_actif))
+                if b == color_1:
+                    score_player_1 +=10
+                    print('Joueur 1: +1Score')
+                    i.etat = False
+                    display(fen)
+                if b == color_2:
+                    score_player_2+=10
+                    print('Joueur 2: +1Score')
+                    display(fen)
+                if b == color_3:
+                    score_player_3 +=10
+                    print('Joueur 3: +1Score')
+                    display(fen)
+                if b == color_4:
+                    score_player_4+=10
+                    print('Joueur 4: +1Score')
+                    display(fen)
+                
+        
+    encadrer()
