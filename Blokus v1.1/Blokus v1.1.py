@@ -1,4 +1,4 @@
-from tkinter import Tk,Canvas,Label,Button,messagebox
+from tkinter import Tk,Canvas,Label,Button
 from math import pow,sqrt
 
 #------------------------------------------------
@@ -44,6 +44,8 @@ player_4 = {
 status = True       #definie si le jeu est en pause 
 #------------
 liste_points = []    #contient la liste des point du jeu
+liste_centre = []    #contient la liste des centres de masse du jeu
+liste_centre_actif = []    #contient la liste des centres de masse qui sont pret a encadrer
 #------------
 curseur = color_1
 #------------------------------------------------
@@ -54,63 +56,99 @@ class Point:
 	def __init__(self,x,y,cnv, color="red"):
 		self.x = x
 		self.y = y
+		self.cnv = cnv
 		self.color = color
 		self.capturer = False
 		
 		#verifions si le pt existe avant de le creer
 		cnv.create_oval(self.x-5, self.y-5, self.x+5, self.y+5,outline=self.color, fill=self.color)
-
-	#retourne le nombre de point qui peuvent etre relier a ce point
-	def valence(self):
-		nbr=0
-		#retourne le nombre de point qui sont autour de ce point
-		if liste_points != []:
-			coor = list()
-			for i in liste_points:
-				coor.append((i.x,i.y))
-			if (self.x-40,self.y-40) in coor:
-				nbr+=1
-			if (self.x,self.y-40) in coor:
-				nbr+=1
-			if (self.x+40,self.y-40) in coor:
-				nbr+=1
-			if (self.x+40,self.y) in coor:
-				nbr+=1
-			if (self.x+40,self.y+40) in coor:
-				nbr+=1
-			if (self.x,self.y+40) in coor:
-				nbr+=1
-			if (self.x-40,self.y) in coor:
-				nbr+=1
-			if (self.x-40,self.y+40) in coor:
-				nbr+=1
-			return nbr
+		#--------------------------------------------------
+		#activons les centres autour de lui
+		#--------------------------------------------------
+		li = self.pt_proches()
+		for i in li:
+			i.etat = True
+			liste_centre_actif.append(i)
+			#cnv.create_oval(i.x-5, i.y-5, i.x+5, i.y+5,outline="#6b6bff", fill= i.color)
 
 
 	#renvoie la liste des points qui sont proche de lui
 	def pt_proches(self):
 		liste= list()
-		if liste_points != []:
+		if liste_centre != []:
 			coor = list()
-			for i in liste_points:
+			for i in liste_centre:
 				coor.append((i.x,i.y))
-			if (self.x-40,self.y-40) in coor:
-				liste.append(Point(self.x-40,self.y-40))
-			if (self.x,self.y-40) in coor:
-				liste.append(Point(self.x,self.y-40))
-			if (self.x+40,self.y-40) in coor:
-				liste.append(Point(self.x+40,self.y-40))
-			if (self.x+40,self.y) in coor:
-				liste.append(Point(self.x+40,self.y))
-			if (self.x+40,self.y+40) in coor:
-				liste.append(Point(self.x+40,self.y+40))
-			if (self.x,self.y+40) in coor:
-				liste.append(Point(self.x,self.y+40))
-			if (self.x-40,self.y) in coor:
-				liste.append(Point(self.x-40,self.y))
+			if (self.x-20,self.y-20) in coor:
+				liste.append(center_pt(self.x-20,self.y-20))
+			
+			if (self.x+20,self.y-20) in coor:
+				liste.append(center_pt(self.x+20,self.y-20))
+			
+			if (self.x+20,self.y+20) in coor:
+				liste.append(center_pt(self.x+20,self.y+20))
+			
+			if (self.x-20,self.y+20) in coor:
+				liste.append(center_pt(self.x-20,self.y+20))
 			return liste
 
+	def id(self,xa,ya):#prendes coordonne en parametre et repond avec sa couleur si se sont les ciens
+		
+		if xa == self.x and ya == self.y:
+			
+			return self.color
+		else:
+			return 0
 
+	
+class center_pt:
+	def __init__(self, x,y):
+		self.x = x
+		self.y = y
+		self.etat = False
+		self.color = "#6b6bff"
+		self.sms = [["",0],["",0],["",0],["",0]]
+        #ici tout les pts centres sont creer des le debut du jeu
+	def write(self,cnv):
+		global curseur
+		if True:#encadrement des pt red
+			for i in liste_points:
+				#pt en haut droite
+				x_pt = self.x +20
+				y_pt = self.y -20
+				if i.id(x_pt,y_pt)!=0:
+					self.sms[0] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+			
+				#pt en haut gauche
+				x_pt = self.x -20
+				y_pt = self.y -20
+				if i.id(x_pt,y_pt)!=0:#on verifie sil ya un pt a cet endroit
+					self.sms[1] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+			
+				#pt en bas gauche
+				x_pt = self.x -20
+				y_pt = self.y +20
+				if i.id(x_pt,y_pt)!=0:#on verifie sil ya un pt a cet endroit
+					self.sms[2] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+			
+				#pt en bas droite
+				x_pt = self.x +20
+				y_pt = self.y +20
+				if i.id(x_pt,y_pt)!=0:#on verifie sil ya un pt a cet endroit
+					self.sms[3] = [i.id(x_pt, y_pt),(x_pt,y_pt)]
+                                        
+			
+			if self.sms[0][0] == self.sms[1][0] == self.sms[2][0] == self.sms[3][0]:
+				print(self.sms)
+				cnv.create_line(self.sms[0][1],self.sms[1][1],fill=self.sms[0][0],width=2)
+				cnv.create_line(self.sms[1][1],self.sms[2][1],fill=self.sms[0][0],width=2)
+				cnv.create_line(self.sms[2][1],self.sms[3][1],fill=self.sms[0][0],width=2)
+				cnv.create_line(self.sms[3][1],self.sms[0][1],fill=self.sms[0][0],width=2)
+				self.etat = False	
+				curseur = self.sms[0][0]
+				return self.sms[0]
+					
+				
 
 #------------------------------------------------
 #-Initialisation des fonctions ------------------
@@ -193,9 +231,31 @@ def nouvelle_partie(taille, temps):
     fen.resizable(width=0, height=0)
 
     #----------Creation du canvas de la grille--------------------------------------------
-    cnv = Canvas(fen, width= taille[0], height= taille[1], bg='#c9c9ff')
+    cnv = Canvas(fen, width= taille_grille[0], height= taille_grille[1], bg='#c9c9ff')
     cnv.place(x=25, y=80)
     #-------------------------------------------------------------------------------------
+    #verifie si un pt est encadrable ou non
+    def encadrer():
+        global score_player_1,score_player_2,score_player_3,score_player_4
+        for i in liste_centre_actif:
+            if i.etat:
+                
+                b = i.write(cnv)
+                if b == color_1:
+                    score_player_1 +=10
+                    display()
+                elif b == color_2:
+                    score_player_2+=10
+                    display()
+                elif b == color_3:
+                    score_player_3 +=10
+                    display()
+                elif b == color_4:
+                    score_player_4+=10
+                    display()
+                
+        
+    encadrer()
 
     #-------------------------------------------------------------------------------------
     #----------Dessin de la grille de jeu ------------------------------------------------
@@ -213,6 +273,14 @@ def nouvelle_partie(taille, temps):
         for i in range(0, taille[1]+10, 40):
             cnv.create_line(0,i,taille[0]+5,i,fill='#2684ff',width=2)
         print('grille ok')
+        #on initialise les centres de masse
+        
+        for x in range(20,taille_grille[0]+40,40):
+            for y in range(20,taille_grille[1]+40,40):
+                liste_centre.append(center_pt(x,y))
+ 
+        liste_centre.pop()
+	
         
     grille()
     #-------------------------------------------------------------------------------------
@@ -353,6 +421,7 @@ def nouvelle_partie(taille, temps):
 
             else:
                 print('impossible de creer le pt')
+            encadrer()
 		
     #-------------------------------------------------------------------------------------
 

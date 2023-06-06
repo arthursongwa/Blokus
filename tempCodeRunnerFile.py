@@ -1,47 +1,27 @@
-	
-#fonction executer lors du click
-def click(event):
-	global curseur
-	
-	#on dessine un point a chaque click
-	x= event.x
-	y= event.y
-	#determinons si le click est proche d'un point
-	if x/40 > int(x/40)+0.5:
-		x= 40*(int(x/40)+1)
-	else:
-		x= 40*int(x/40)
 
-	if y/40 > int(y/40)+0.5:
-		y= 40*(int(y/40)+1)
-	else:
-		y= 40*int(y/40)
-	#verifions si le click est proche de ce point
-	if sqrt(pow(event.x-x, 2)+pow(event.y-y, 2))<= 10:
-		#on verifie si un point a deja ete dessine a cet emplacement
-		exis = False
-		for i in liste_points_rouge:
-			if i.x == x and i.y == y:
-				exis = True
-		for i in liste_points_bleu:
-			if i.x == x and i.y == y:
-				exis = True
+    #creation de la grille du jeu
+	#arriere plan
+	for i in range(0, 760, 10):
+		cnv.create_line(i,0,i,560,fill='#a1b2ff',width=2)
+	for i in range(0, 560, 10):
+		cnv.create_line(0,i,760,i,fill='#a1b2ff',width=2)
+
+	#avant plan
+	for i in range(0, 760, 40):
+		cnv.create_line(i,0,i,560,fill='#2684ff',width=2)
+	for i in range(0, 560, 40):
+		cnv.create_line(0,i,760,i,fill='#2684ff',width=2)
 		
-		if exis == False and curseur == "red":
-			liste_points_rouge.append(Point(x,y))
-			#actualisation du nbr de pt
-			print("Point rouge creer : "+str(x)+"--"+str(y))
-			info_red["nbr_pt"]+=1
-			curseur = "blue"
-
-		elif exis == False and curseur == "blue":
-			liste_points_bleu.append(Point(x,y,"blue"))
-			#actualisation du nbr de pt
-			print("Point bleu creer : "+str(x)+"--"+str(y))
-			info_blue["nbr_pt"]+=1
-			curseur = "red"
-
-		else:
-			print('impossible')
+	cnv.create_line(2,0,2,560,fill='#2684ff',width=2)
+	cnv.create_line(0,2,760,2,fill='#2684ff',width=2)
+	cnv.create_line(0,560,760,560,fill='#2684ff',width=2)
+	x,y = 20,20
+	while y<=540:
+		if x>540:
+			x= 20
+			y+=40
+		liste_center.append(center_pt(x,y))
+		x+=40
 		
-		display()
+	liste_center.pop()
+	
