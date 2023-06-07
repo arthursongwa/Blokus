@@ -15,6 +15,10 @@ fenetre edit []
 choix du gagnant []
 ---------------------
 
+---------------------
+Encadrement []
+---------------------
+
 class center_pt:
 	def __init__(self, x,y):
 		self.x = x

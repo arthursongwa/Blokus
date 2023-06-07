@@ -1,17 +1,18 @@
-from tkinter import Tk,Canvas,Label,Button
+from tkinter import Tk,Canvas,Label,Button,Frame,Entry
 from math import pow,sqrt
 
 #------------------------------------------------
 #-Initialisation des variables globaux-----------
 #------------------------------------------------
-taille_grille = 658,558#taille de la grille min:500,278 
-temps_jeu =  [0,1,31]#temps avant la fin du jeu en minute
+taille_grille = 758,558#taille de la grille min:500,278 
+temps_jeu =  [0,5,1]#temps avant la fin du jeu en minute
+
 #-----------------------------------------------
 #------Informations sur les joueurs-------------
 color_1, nbr_pt_player_1,score_player_1,etat_player_1 = "#cd021b",0,0,True
-color_2, nbr_pt_player_2,score_player_2,etat_player_2 = "#9d6c36",0,0,True
+color_2, nbr_pt_player_2,score_player_2,etat_player_2 = "#9d6c36",0,0,False
 color_3, nbr_pt_player_3,score_player_3,etat_player_3 = "#068520",0,0,False
-color_4, nbr_pt_player_4,score_player_4,etat_player_4 = "#6f2c99",0,0,False
+color_4, nbr_pt_player_4,score_player_4,etat_player_4 = "#6f2c99",0,0,True
 
 #---------------------------------
 player_1 = {
@@ -44,10 +45,17 @@ player_4 = {
 status = True       #definie si le jeu est en pause 
 #------------
 liste_points = []    #contient la liste des point du jeu
-liste_centre = []    #contient la liste des centres de masse du jeu
 liste_centre_actif = []    #contient la liste des centres de masse qui sont pret a encadrer
 #------------
-curseur = color_1
+#definissons le curseur
+if etat_player_1:
+    curseur = color_1
+elif etat_player_2:
+    curseur = color_2
+elif etat_player_3:
+    curseur = color_3
+elif etat_player_4:
+    curseur = color_4
 #------------------------------------------------
 #-Initialisation des Classes --------------------
 #------------------------------------------------
@@ -62,6 +70,13 @@ class Point:
 		
 		cnv.create_oval(self.x-5, self.y-5, self.x+5, self.y+5,outline=self.color, fill=self.color)
 		
+    #renvoie sa couleur si les coordonnees sont exacte
+	def id(self,a,b):
+		if a == self.x and b == self.y:
+			return self.color
+		else:
+			return 0
+
 
 #------------------------------------------------
 #-Initialisation des fonctions ------------------
@@ -147,11 +162,26 @@ def display(fen):#gere laffichage des widget a lecran
 def fin_jeu():
 	pass
 
-def fen_setting():
-     pass	
+def init():#appeler au debut du jeu pour initialiser celui-ci
+    fen_init = Tk()
+    fen_init.title('Blockus version 1.0')
+    fen_init.geometry('500x300+200+30')
+    fen_init.resizable(width=0, height=0)
 
+    #--------------------------------------
+    #-------------Zone du logo-------------
+    #--------------------------------------
+    zone_logo = Canvas(fen_init, width=250,height=300,bg='red')
+    zone_logo.place(x=0,y=0)
+
+    #--------------------------------------
+    #-------------Zone du logo-------------
+    #--------------------------------------
+
+    fen_init.mainloop()
 
 def nouvelle_partie(taille, temps):
+    init()#on initialise le jeu
     #-------------------------------
     #Elle genere une nouvelle partie
     #-------------------------------
@@ -331,7 +361,6 @@ def nouvelle_partie(taille, temps):
             a = Button(fen, text="", bg=curseur,width=int(((25+taille_grille[0]-160)-177)*0.04), relief="flat")
             a.place(x=300, y=70+taille_grille[1]+23)    
             
-
             
     #-------------------------------------------------------------------------------------
 
@@ -342,9 +371,8 @@ def nouvelle_partie(taille, temps):
     #pause 
     pause = Button(fen,command=lambda: put_pause(fen), text="Pause",width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
     pause.place(x= 160, y=70+taille_grille[1]+18)
-    #parametre 
-    setting = Button(fen,command=fen_setting, text="Edit",width=10,height=2, bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
-    setting.place(x= -10, y= 0)
+    
+    
     #indicateur de tour de jeu
     
     a = Button(fen, text="", bg=curseur,width=int(((25+taille_grille[0]-160)-177)*0.04), relief="flat")
