@@ -1,18 +1,20 @@
-from tkinter import Tk,Canvas,Label,Button,Frame,Entry
+from tkinter import Tk,Canvas,Label,Button,Spinbox
 from math import pow,sqrt
+from random import randrange
 
 #------------------------------------------------
 #-Initialisation des variables globaux-----------
 #------------------------------------------------
-taille_grille = 758,558#taille de la grille min:500,278 
+
+taille_grille = 500,278#taille de la grille min:500,278 
 temps_jeu =  [0,5,1]#temps avant la fin du jeu en minute
 
 #-----------------------------------------------
 #------Informations sur les joueurs-------------
-color_1, nbr_pt_player_1,score_player_1,etat_player_1 = "#cd021b",0,0,True
+color_1, nbr_pt_player_1,score_player_1,etat_player_1 = "#cd021b",0,0,False
 color_2, nbr_pt_player_2,score_player_2,etat_player_2 = "#9d6c36",0,0,False
 color_3, nbr_pt_player_3,score_player_3,etat_player_3 = "#068520",0,0,False
-color_4, nbr_pt_player_4,score_player_4,etat_player_4 = "#6f2c99",0,0,True
+color_4, nbr_pt_player_4,score_player_4,etat_player_4 = "#6f2c99",0,0,False
 
 #---------------------------------
 player_1 = {
@@ -47,15 +49,7 @@ status = True       #definie si le jeu est en pause
 liste_points = []    #contient la liste des point du jeu
 liste_centre_actif = []    #contient la liste des centres de masse qui sont pret a encadrer
 #------------
-#definissons le curseur
-if etat_player_1:
-    curseur = color_1
-elif etat_player_2:
-    curseur = color_2
-elif etat_player_3:
-    curseur = color_3
-elif etat_player_4:
-    curseur = color_4
+curseur = "gr"
 #------------------------------------------------
 #-Initialisation des Classes --------------------
 #------------------------------------------------
@@ -163,25 +157,108 @@ def fin_jeu():
 	pass
 
 def init():#appeler au debut du jeu pour initialiser celui-ci
+    global liste_points
+    liste_points = []
     fen_init = Tk()
-    fen_init.title('Blockus version 1.0')
+    fen_init.title('Blockus version 1.0 ---Configuration de la partie---')
     fen_init.geometry('500x300+200+30')
-    fen_init.resizable(width=0, height=0)
-
+    fen_init.resizable(width=0,height=0)
+    
     #--------------------------------------
     #-------------Zone du logo-------------
     #--------------------------------------
-    zone_logo = Canvas(fen_init, width=250,height=300,bg='red')
-    zone_logo.place(x=0,y=0)
+    zone_logo = Canvas(fen_init, width=200,height=300,bg='red')
+    zone_logo.place(x=-2,y=-2)
 
     #--------------------------------------
-    #-------------Zone du logo-------------
+    #--------Element de la fenetre---------
     #--------------------------------------
+    #titre
+    titre = Label(fen_init,text="Blokus v1.1",font=("Arial",14,"bold"))
+    titre.place(x= 40, y= 15)
 
+    #taille grille
+    size = Label(fen_init,text="Taille de la Grille",font=("Arial",10,"bold"))
+    size.place(x= 290, y= 5)
+
+    #largeur
+    l = Spinbox(fen_init,width=10,from_=500,to=1300,increment=20,font=("Arial",12,"bold"))
+    l.place(x=215,y=30)
+
+    #hauteur
+    h = Spinbox(fen_init,width=10,from_=280,to=650,increment=20,font=("Arial",12,"bold"))
+    h.place(x=380,y=30)
+
+    #temps de jeu
+    tmp = Label(fen_init,text="Temps de Jeu (min)",font=("Arial",10,"bold"))
+    tmp.place(x= 280, y= 65)
+
+    tmp_entry = Spinbox(fen_init,width=10,from_=1,to=30,font=("Arial",12,"bold"))
+    tmp_entry.place(x=290,y=90)
+
+    #Nombre de joueur
+    nb = Label(fen_init,text="Nombre de Joueur",font=("Arial",10,"bold"))
+    nb.place(x= 285, y= 120)
+
+    #largeur
+    nb_entry = Spinbox(fen_init,width=10,from_=2,to=4,font=("Arial",12,"bold"))
+    nb_entry.place(x=290,y=145)
+
+    #Lancer 
+    lancer = Button(fen_init,command= lambda: nouvelle_partie(fen_init),text="Lancer",width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
+    lancer.place(x= 285, y= 250)
+    #--------------------------------------
+    #-------------Fonctions----------------
+    #--------------------------------------
+    def save(event):
+        file = open("base_donne.txt", "w")
+        file.write(l.get()+'\n')
+        file.write(h.get()+'\n')
+        file.write(tmp_entry.get()+'\n')
+        file.write(nb_entry.get())
+        file.close()
+        print("-----Donne save")
+
+    lancer.bind("<Button-1>",save)
     fen_init.mainloop()
 
-def nouvelle_partie(taille, temps):
-    init()#on initialise le jeu
+def nouvelle_partie(fen_init):
+    global curseur,etat_player_1,etat_player_2,etat_player_3,etat_player_4
+    fen_init.destroy()
+    
+    #chargons les variables
+    file = open("base_donne.txt",'r')
+    rt = file.read().split('\n')
+    file.close()
+
+    print(rt)
+    taille_grille = (int(rt[0]),int(rt[1]))
+    temps_jeu[1] = int(rt[2])
+    #activons le nbr de joueur correspondant
+    if int(rt[3]) == 2:
+        etat_player_1 = True
+        etat_player_4 = True
+    elif int(rt[3]) == 3:
+        etat_player_1 = True
+        etat_player_2 = True
+        etat_player_4 = True
+    elif int(rt[3]) == 4:
+        etat_player_1 = True
+        etat_player_2 = True
+        etat_player_3 = True
+        etat_player_4 = True
+        
+    #------------
+    #definissons le curseur
+    if etat_player_1:
+        curseur = color_1
+    elif etat_player_2:
+        curseur = color_2
+    elif etat_player_3:
+        curseur = color_3
+    elif etat_player_4:
+        curseur = color_4
+
     #-------------------------------
     #Elle genere une nouvelle partie
     #-------------------------------
@@ -189,7 +266,7 @@ def nouvelle_partie(taille, temps):
     fen = Tk()
     fen.title('Blockus version 1.0')
     #---------calculant la taille de la fenetre en fonction de la grille----------------
-    fen.geometry(str(taille[0]+50)+'x'+str(taille[1]+130)+'+200+30')
+    fen.geometry(str(taille_grille[0]+50)+'x'+str(taille_grille[1]+130)+'+200+30')
     #------------------------------------------------------------------------------------  
     fen.resizable(width=0, height=0)
     
@@ -204,16 +281,16 @@ def nouvelle_partie(taille, temps):
     def grille():
         #creation de la grille du jeu
         #arriere plan
-        for i in range(0, taille[0]+10, 10):
-            cnv.create_line(i,0,i,taille[1]+5,fill='#a1b2ff',width=2)
-        for i in range(0, taille[1]+10, 10):
-           cnv.create_line(0,i,taille[0]+5,i,fill='#a1b2ff',width=2)
+        for i in range(0, taille_grille[0]+10, 10):
+            cnv.create_line(i,0,i,taille_grille[1]+5,fill='#a1b2ff',width=2)
+        for i in range(0, taille_grille[1]+10, 10):
+           cnv.create_line(0,i,taille_grille[0]+5,i,fill='#a1b2ff',width=2)
 
         #avant plan
-        for i in range(0, taille[0]+10, 40):
-            cnv.create_line(i,0,i,taille[1]+5,fill='#2684ff',width=2)
-        for i in range(0, taille[1]+10, 40):
-            cnv.create_line(0,i,taille[0]+5,i,fill='#2684ff',width=2)
+        for i in range(0, taille_grille[0]+10, 40):
+            cnv.create_line(i,0,i,taille_grille[1]+5,fill='#2684ff',width=2)
+        for i in range(0, taille_grille[1]+10, 40):
+            cnv.create_line(0,i,taille_grille[0]+5,i,fill='#2684ff',width=2)
         print('------------------------Grille OK-------------------------')
         
 
@@ -228,7 +305,7 @@ def nouvelle_partie(taille, temps):
 
     #----------Affichage du temps et controle de la partie--------------------------------
     #affiche le temps et controle la partie 
-    def time_play():
+    def time_play(temps):
         global status
         
         if status:
@@ -271,8 +348,8 @@ def nouvelle_partie(taille, temps):
             tp.place(x= 25+taille_grille[0]-160, y= 70+taille_grille[1]+22)
 
         
-        cnv.after(1000,time_play)
-    time_play()
+        cnv.after(1000,lambda:time_play(temps_jeu))
+    time_play(temps_jeu)
     
     #-------------------------------------------------------------------------------------
     #----------Evenement de click de la souris--------------------------------------------	
@@ -366,7 +443,7 @@ def nouvelle_partie(taille, temps):
 
     #bouton de jeu 
     #rejouer
-    new = Button(fen, text="Nouveau",command= lambda:nouvelle_partie(taille_grille, temps_jeu),width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
+    new = Button(fen, text="Nouveau",command= init,width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
     new.place(x= 25, y=70+taille_grille[1]+18)
     #pause 
     pause = Button(fen,command=lambda: put_pause(fen), text="Pause",width=17,height=2, relief="flat", bg="#6b6bff",font=("Arial",9,"bold"),activebackground="#6b6bff",bd=0)
@@ -381,6 +458,6 @@ def nouvelle_partie(taille, temps):
     
     cnv.bind('<Button-1>', click)
     print("-----------------Nouvelle Partie Charger------------------")
-    fen.mainloop()
 
-nouvelle_partie(taille_grille, temps_jeu)
+
+init()

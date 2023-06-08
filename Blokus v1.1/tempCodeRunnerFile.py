@@ -1,1 +1,1 @@
-str(type(self.sms[0][1]))=="<class 'tuple'>" and str(type(self.sms[1][1]))=="<class 'tuple'>" and str(type(self.sms[2][1]))=="<class 'tuple'>" and str(type(self.sms[3][1]))=="<class 'tuple'>"
+int(rt[0]),int(rt[1])
